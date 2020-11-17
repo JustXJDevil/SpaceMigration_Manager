@@ -25,7 +25,7 @@ mybatis:
     #驼峰规则
     map-underscore-to-camel-case: true
   mapper-locations:
-  - classpath:/mapper/clark/*.xml
+  - classpath:/mapper/manager/*.xml
     
 #log
 logging:
