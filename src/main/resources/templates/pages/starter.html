@@ -420,14 +420,34 @@ desired effect
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
-	$(function(){
-		doLoadUI("load-log-id","log/log_list");
-	})
-	function doLoadUI(id,url){
-		$("#"+id).click(function(){
-			$("#mainContentId").load(url)
-		})
-	};
+  $(function(){
+	 //初始化页面用户信息
+	 doInitUserInfo();
+	 doLoadUI("load-log-id","log/log_list");
+	 doLoadUI("load-menu-id","menu/menu_list");
+	 doLoadUI("load-dept-id","dept/dept_list");
+	 doLoadUI("load-role-id","role/role_list");
+	 doLoadUI("load-user-id","user/user_list");
+	 doLoadUI("load-pwd-id","user/pwd_edit");
+  })
+  function doInitUserInfo(){
+	  var url="user/doGetLoginUser";
+	  $.getJSON(url,function(result){
+		  if(result.state==1){
+			 var p=$(".info").find("p:eq(0)");
+			 p.empty();
+			 p.text(result.data.username);
+			 $(".hidden-xs").text(result.data.username);
+		  }
+	  })
+  }
+  function doLoadUI(id,url){
+	  $("#"+id).click(function(){
+		  //1.load为jquery中的一个异步函数(底层起异步线程)
+		  //2.其作用是在指定位置异步加载并呈现具体资源(例如页面)
+		  $("#mainContentId").load(url);
+	  }) 
+  }
 </script>
 </body>
 </html>

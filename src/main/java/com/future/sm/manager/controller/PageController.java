@@ -11,4 +11,10 @@ public class PageController {
 	public String doIndexUI() {
 		return "starter";
 	}
+	
+	//加载分页按钮
+	@RequestMapping("doPageUI")
+	public String loadPage() {
+		return "common/page";
+	}
 }
