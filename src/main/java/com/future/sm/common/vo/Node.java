@@ -1,11 +1,16 @@
 package com.future.sm.common.vo;
 
 import java.io.Serializable;
-
+/**
+ * 用于封装树结构的节点信息
+ * */
 public class Node implements Serializable{
 	private static final long serialVersionUID = 1L;
+	//节点id
 	private int id;
+	//节点名称
 	private String name;
+	//上级节点id
 	private int parentId;
 	
 	public Integer getId() {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.sm.manager.dao.ManRoleDao">
+    <select id="findPageObjects" resultType="com.future.sm.manager.pojo.ManRole">
+        select * from sys_roles <include refid="whereUsername"/>
+        order by createdTime desc
+         limit #{start},#{pageSize}
+    </select>
+
+    <select id="gerRowCounts" resultType="int">
+        select count(*) from sys_roles <include refid="whereUsername"/>
+    </select>
+
+    <sql id="whereUsername">
+        <where>
+            <if test="name != null and name != ''">
+                name like concat("%",#{name},"%")
+            </if>
+        </where>
+    </sql>
+</mapper>
