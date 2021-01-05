@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.sm.manager.dao.ManRoleMenuDao">
+	<delete id="deleteObjectsBymenuId">
+		delete from sys_role_menus where menu_id=#{id}
+	</delete>
+	
+	<insert id="insertObject">
+		insert into sys_role_menus (role_id,menu_id) 
+		value
+		(#{roleId},#{menuId})
+	</insert>
+</mapper>

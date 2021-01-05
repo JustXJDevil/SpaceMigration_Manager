@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.sm.manager.dao.ManLogDao">
+	<select id="findPageObject" resultType="com.future.sm.manager.pojo.ManLog">
+		select * from sys_logs 
+		<include refid="WhereUserName"/>
+		 order by createdTime desc 
+		 limit #{start},#{pageSize}
+	</select>
+	<select id="getRowCounts" resultType="Integer">
+		select count(*) from sys_logs
+	</select>
+	
+	
+	<sql id="WhereUserName">
+		<where>
+			<if test="username!=null and username!=''">
+                username like concat("%",#{username},"%")
+            </if>
+		</where>
+	</sql>
+	
+	<delete id="doDeleteObjects">
+		delete
+		 from sys_logs where id in 
+		<foreach collection="ids"
+				 open="(" close=")" 
+				 separator=","
+				 item="id">
+				 #{id}
+				 </foreach>
+	</delete>
+</mapper>
