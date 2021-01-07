@@ -20,4 +20,30 @@
             </if>
         </where>
     </sql>
+
+    <insert id="doSaveObject">
+        insert into sys_roles
+            (id,name,note,createdTime,modifiedTime,
+            createdUser,modifiedUser)
+            values
+            (null,#{name},#{note},now(),now(),
+             #{createdUser},#{modifiedUser})
+    </insert>
+
+    <update id="updateObject">
+        update sys_roles
+        <set>
+            <if test="name!=null and name!=''">
+                name = #{name},
+            </if>
+            <if test="note!=null and note!=''">
+                note = #{note},
+            </if>
+            <if test="modifiedUser!=null and modifiedUser!=''">
+                modifiedUser=#{modifiedUser},
+            </if>
+            modifiedTime=now()
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

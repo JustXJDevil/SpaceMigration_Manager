@@ -12,4 +12,13 @@
 		value
 		(#{roleId},#{menuId})
 	</insert>
+
+	<insert id="doSaveObjects">
+			insert into sys_role_menus
+			(role_id,menu_id)
+			values
+		<foreach collection="menuIds" separator="," item="menuId">
+			(#{roleId},#{menuId})
+		</foreach>
+	</insert>
 </mapper>
