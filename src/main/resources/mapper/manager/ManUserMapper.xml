@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.future.sm.manager.dao.ManUserDao">
+    <resultMap id="UserDeptVo" type="com.future.sm.common.vo.UserDeptVo">
+        <!--关联查询（一对多、一对一用association，多对一用collection）-->
+        <!--property是需要进行查询的参数名称-->
+        <!--基于column参数进行<select>-->
+        <association property="manDept"
+                     column="deptId"
+                     select="com.future.sm.manager.dao.ManDeptDao.findObjectById"></association>
+    </resultMap>
+    <select id="findPageObjects" resultMap="UserDeptVo">
+        select * from sys_users <include refid="whereById"/>
+        order by modifiedTime desc
+        limit #{start},#{pageSize}
+    </select>
+
+    <sql id="whereById">
+        <where>
+            <if test="username!=null and username!=''">
+                username like concat("%",#{username},"%")
+            </if>
+        </where>
+    </sql>
+</mapper>
