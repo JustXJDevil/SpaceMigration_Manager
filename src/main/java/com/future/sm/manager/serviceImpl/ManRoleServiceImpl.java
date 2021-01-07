@@ -1,6 +1,7 @@
 package com.future.sm.manager.serviceImpl;
 
 import com.future.sm.common.exception.ServiceException;
+import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.RoleMenuVo;
 import com.future.sm.manager.dao.ManRoleDao;
 import com.future.sm.manager.dao.ManRoleMenuDao;
@@ -137,4 +138,8 @@ public class ManRoleServiceImpl implements ManRoleService {
         }
     }
 
+    @Override
+    public List<CheckBox> findRoles() {
+        return dao.findRoles();
+    }
 }

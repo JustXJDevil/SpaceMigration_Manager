@@ -24,4 +24,42 @@
             </if>
         </where>
     </sql>
+
+    <insert id="saveObject">
+        insert into sys_users
+        (username,password,deptId,email,mobile,salt,valid,
+         createdTime,modifiedTime,createdUser,modifiedUser
+        )
+        values
+        (#{username},#{password},#{deptId},#{email},#{mobile},#{salt},#{valid},
+         now(),now(),#{createdUser},#{modifiedUser}
+        )
+    </insert>
+
+    <select id="findObjectById" resultMap="UserDeptVo">
+        select * from sys_users where id=#{id}
+    </select>
+
+    <update id="updateObject">
+        update sys_users
+        <set>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="email!=null and email!=''">
+                email=#{email},
+            </if>
+            <if test="mobile!=null and mobile!=''">
+                mobile=#{mobile},
+            </if>
+            <if test="deptId!=null and deptId!=''">
+                deptId=#{deptId},
+            </if>
+            <if test="modifiedUser!=null and modifiedUser!=''">
+                modifiedUser=#{modifiedUser},
+            </if>
+            modifiedTime=now()
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

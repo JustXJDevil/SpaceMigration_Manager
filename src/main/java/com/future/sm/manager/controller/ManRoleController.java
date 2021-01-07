@@ -48,4 +48,10 @@ public class ManRoleController {
         service.deleteObjectById(id);
         return new JsonResult("delete ok!");
     }
+
+    @ResponseBody
+    @RequestMapping("doFindRoles")
+    public JsonResult doFindRoles(){
+        return new JsonResult(service.findRoles());
+    }
 }

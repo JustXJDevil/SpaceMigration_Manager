@@ -1,5 +1,6 @@
 package com.future.sm.manager.service;
 
+import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.RoleMenuVo;
 import com.future.sm.manager.pojo.ManRole;
 import com.future.sm.manager.vo.PageObject;
@@ -16,4 +17,6 @@ public interface ManRoleService {
     void updateObject(ManRole manRole,Integer... menuIds);
 
     void deleteObjectById(Integer id);
+
+    List<CheckBox> findRoles();
 }

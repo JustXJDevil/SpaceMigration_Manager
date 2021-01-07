@@ -1,5 +1,6 @@
 package com.future.sm.manager.dao;
 
+import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.RoleMenuVo;
 import com.future.sm.manager.pojo.ManRole;
 import org.apache.ibatis.annotations.*;
@@ -29,4 +30,7 @@ public interface ManRoleDao {
 
     @Delete("delete from sys_roles where id = #{id}")
     int deleteObjectById(Integer id);
+
+    @Select("select id,name from sys_roles")
+    List<CheckBox> findRoles();
 }
