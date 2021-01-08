@@ -25,7 +25,7 @@
         </where>
     </sql>
 
-    <insert id="saveObject">
+    <insert id="saveObject" useGeneratedKeys="true" keyProperty="id">
         insert into sys_users
         (username,password,deptId,email,mobile,salt,valid,
          createdTime,modifiedTime,createdUser,modifiedUser

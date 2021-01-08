@@ -8,14 +8,17 @@ import com.future.sm.manager.dao.ManUserRoleDao;
 import com.future.sm.manager.pojo.ManUser;
 import com.future.sm.manager.service.ManUserService;
 import com.future.sm.manager.vo.PageObject;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class ManUserServiceImpl implements ManUserService {
@@ -77,13 +80,28 @@ public class ManUserServiceImpl implements ManUserService {
             throw new ServiceException("pleas choose at least one role");
         }
 
-        //保存user
+        //2.保存user
+        //2.1 加密salt和password
+        String salt = UUID.randomUUID().toString();
+        String encryptedPWD = DigestUtils.md5DigestAsHex((salt+manUser.getPassword()).getBytes());
+        /*  使用shiro加密
+        SimpleHash simpleHash = new SimpleHash(
+                "MD5",      //algorithmName 算法名
+                manUser.getPassword(),    //source 待加密密码
+                salt,                     //salt
+                1);          //hashIterations 加密次数
+        String encryptedPWD = simpleHash.toHex();
+         */
+        //2.2 将加密密码和salt封装
+        manUser.setPassword(encryptedPWD);
+        manUser.setSalt(salt);
+        //2.3 持久化到数据库中
         int row1 = manUserDao.saveObject(manUser);
-        System.out.println("userID="+manUser.getId());
-        //获取刚才insert的数据的id
-        int userId = manUserDao.getMaxId();
+        //System.out.println("userID="+manUser.getId());
+        //获取刚才insert的数据的id(已在mapper文件中解决)
+        //int userId = manUserDao.getMaxId();
         //保存user_role
-        int row2 = manUserRoleDao.saveObjects(userId,roleIds);
+        int row2 = manUserRoleDao.saveObjects(manUser.getId(),roleIds);
     }
 
     @Override
@@ -109,14 +127,14 @@ public class ManUserServiceImpl implements ManUserService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateObject(ManUser manUser, Integer... roleIds) {
-        //校检
+        //1.校检
         if (manUser.getUsername() == null) {
             throw new ServiceException("username can't be null");
         }
         if (roleIds == null || roleIds.length==0) {
             throw new ServiceException("pleas choose at least one role");
         }
-        //更新user
+        //2.更新user
         int row1 = manUserDao.updateObject(manUser);
         //跟新user_role
         int row2 = manUserRoleDao.deleteObjectsByUserId(manUser.getId());
