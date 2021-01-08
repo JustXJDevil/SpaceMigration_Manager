@@ -19,7 +19,7 @@ public class ManLogServiceImpl implements ManLogService {
 //			throw new ServiceException("请输入正确的用户名");
 //		}
 		//设置页面大小为3
-		int pageSize = 3;
+		int pageSize = 9;
 		PageObject<ManLog> po = new PageObject();
 		//查询总记录数
 		Integer counts = dao.getRowCounts();
@@ -53,5 +53,10 @@ public class ManLogServiceImpl implements ManLogService {
 		if(rows == 0)
 			throw new ServiceException("maybe they are not exist already!!");
 		return rows;
+	}
+
+	@Override
+	public void insertObject(ManLog manLog) {
+		dao.insertObject(manLog);
 	}
 }

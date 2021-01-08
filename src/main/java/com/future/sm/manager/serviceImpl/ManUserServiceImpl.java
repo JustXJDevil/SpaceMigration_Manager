@@ -1,5 +1,6 @@
 package com.future.sm.manager.serviceImpl;
 
+import com.future.sm.common.annotation.RequiredLog;
 import com.future.sm.common.exception.ServiceException;
 import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.UserDeptVo;
@@ -49,6 +50,7 @@ public class ManUserServiceImpl implements ManUserService {
     }
 
     @Override
+    @RequiredLog("禁用启用")
     public void updateValidById(Integer id, Integer valid, String modifiedUser) {
         //校检
         if (valid != 0 && valid != 1) {

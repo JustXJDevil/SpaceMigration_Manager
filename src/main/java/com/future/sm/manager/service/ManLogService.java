@@ -7,4 +7,6 @@ public interface ManLogService {
 	public PageObject<ManLog> findPageObject(String name, Integer pageCurrent);
 	
 	public int doDeleteObjects(Integer...ids);
+
+	void insertObject(ManLog manLog);
 }

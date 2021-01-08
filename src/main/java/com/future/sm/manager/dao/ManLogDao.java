@@ -15,4 +15,6 @@ public interface ManLogDao {
 	public Integer getRowCounts();
 	
 	public int doDeleteObjects(@Param("ids")Integer...ids);
+
+	public int insertObject(ManLog manLog);
 }

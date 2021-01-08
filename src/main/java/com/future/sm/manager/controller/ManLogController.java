@@ -28,7 +28,6 @@ public class ManLogController {
 	public JsonResult doFindPageObjects(
 			String username,
 			Integer pageCurrent) {
-		System.out.println("username="+username);
 		PageObject<ManLog> po = service.findPageObject(username, pageCurrent);
 		JsonResult res = new JsonResult();
 		res.setData(po);

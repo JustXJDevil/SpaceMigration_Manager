@@ -5,7 +5,7 @@ import java.util.Date;
 public class ManLog {
 	private Integer id;
 	private String username;
-	private String opration;	//用户操作
+	private String operation;	//用户操作
 	private String method;		//请求方法
 	private String params;		//请求参数
 	private Long time;			//执行时长（毫秒）
@@ -23,11 +23,11 @@ public class ManLog {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getOpration() {
-		return opration;
+	public String getOperation() {
+		return operation;
 	}
-	public void setOpration(String opration) {
-		this.opration = opration;
+	public void setOperation(String opration) {
+		this.operation = opration;
 	}
 	public String getMethod() {
 		return method;
@@ -59,6 +59,18 @@ public class ManLog {
 	public void setCreateTime(Date createTime) {
 		this.createdTime = createTime;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ManLog{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", operation='" + operation + '\'' +
+				", method='" + method + '\'' +
+				", params='" + params + '\'' +
+				", time=" + time +
+				", ip='" + ip + '\'' +
+				", createdTime=" + createdTime +
+				'}';
+	}
 }
