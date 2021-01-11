@@ -40,7 +40,7 @@ public class ManLogAspect {
          */
         ManLog manLog = getManLogForJDKProxy(pj, time);
         //3.持久化
-        manLogService.insertObject(manLog);
+            manLogService.insertObject(manLog);
     }
 
     /**
@@ -92,7 +92,6 @@ public class ManLogAspect {
         manLog.setOperation(requiredLog.value());
         manLog.setParams(Arrays.toString(args));
         manLog.setTime(time);
-        System.out.println(manLog);
         return manLog;
     }
 
@@ -142,7 +141,6 @@ public class ManLogAspect {
         manLog.setOperation(operation);
         manLog.setParams(Arrays.toString(args));
         manLog.setTime(time);
-        System.out.println(manLog);
         return manLog;
     }
 }

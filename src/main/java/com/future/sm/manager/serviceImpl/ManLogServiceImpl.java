@@ -1,6 +1,8 @@
 package com.future.sm.manager.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import com.future.sm.common.exception.ServiceException;
@@ -8,12 +10,19 @@ import com.future.sm.manager.dao.ManLogDao;
 import com.future.sm.manager.pojo.ManLog;
 import com.future.sm.manager.service.ManLogService;
 import com.future.sm.manager.vo.PageObject;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.Future;
+
 @Service
 public class ManLogServiceImpl implements ManLogService {
 	@Autowired
 	private ManLogDao dao;
+
 	@Override
 	public PageObject<ManLog> findPageObject(String name,Integer pageCurrent) {
+		System.out.println("没有走缓存");
 		//数据验证
 //		if(name == null || name.length()==0) {
 //			throw new ServiceException("请输入正确的用户名");
@@ -55,8 +64,17 @@ public class ManLogServiceImpl implements ManLogService {
 		return rows;
 	}
 
+	@Async
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Override
-	public void insertObject(ManLog manLog) {
-		dao.insertObject(manLog);
+	public Future<Integer> insertObject(ManLog manLog) {
+		System.out.println("save_t: "+Thread.currentThread().getName());
+		int row = dao.insertObject(manLog);
+		try{
+			Thread.sleep(5000);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return new AsyncResult<Integer>(row);
 	}
 }

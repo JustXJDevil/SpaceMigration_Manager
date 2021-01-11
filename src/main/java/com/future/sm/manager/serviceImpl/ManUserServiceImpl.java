@@ -2,15 +2,15 @@ package com.future.sm.manager.serviceImpl;
 
 import com.future.sm.common.annotation.RequiredLog;
 import com.future.sm.common.exception.ServiceException;
-import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.UserDeptVo;
 import com.future.sm.manager.dao.ManUserDao;
 import com.future.sm.manager.dao.ManUserRoleDao;
 import com.future.sm.manager.pojo.ManUser;
 import com.future.sm.manager.service.ManUserService;
 import com.future.sm.manager.vo.PageObject;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +28,12 @@ public class ManUserServiceImpl implements ManUserService {
     @Autowired
     private ManUserRoleDao manUserRoleDao;
 
+    @Transactional(readOnly = true)
+    @RequiredLog("用户分页查询")
     @Override
     public PageObject findPageObjects(Integer pageCurrent, String username) {
+        System.out.println("看见我表示没有走缓存");
+        System.out.println("findPageObjects_t: "+Thread.currentThread().getName());
         //校检
         if (pageCurrent <= 0) {
             throw new ServiceException("wrong page info");
@@ -106,6 +110,12 @@ public class ManUserServiceImpl implements ManUserService {
         int row2 = manUserRoleDao.saveObjects(manUser.getId(),roleIds);
     }
 
+    /**
+     * //用于告诉spring，此方法的返回结果进行cache
+     * userCache是缓存名称
+     * 缓存的key默认是方法参数的组合
+     */
+    @Cacheable(value = "userCache")
     @Override
     public Map<String, Object> findObjectById(Integer id) {
         //校检
@@ -127,6 +137,8 @@ public class ManUserServiceImpl implements ManUserService {
     }
 
     @Override
+    //清除缓存（注意key的格式）
+    @CacheEvict(value = {"userCache"},key = "#manUser.id")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateObject(ManUser manUser, Integer... roleIds) {
         //1.校检
@@ -144,6 +156,4 @@ public class ManUserServiceImpl implements ManUserService {
         if (row1==0 || row2==0 || row3==0)
             throw new ServiceException("failed1");
     }
-
-
 }
