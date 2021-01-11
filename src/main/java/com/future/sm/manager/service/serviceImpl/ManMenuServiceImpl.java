@@ -1,4 +1,4 @@
-package com.future.sm.manager.serviceImpl;
+package com.future.sm.manager.service.serviceImpl;
 
 import java.util.List;
 import java.util.Map;

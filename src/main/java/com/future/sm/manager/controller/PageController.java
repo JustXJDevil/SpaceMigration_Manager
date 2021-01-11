@@ -18,6 +18,11 @@ public class PageController {
 	public String loadPage() {
 		return "common/page";
 	}
+
+	@RequestMapping("doLoginUI")
+	public String doLoginUI(){
+		return "login";
+	}
 	
 	@RequestMapping("{modle}/{modleUI}")
 	public String doMeneUI(@PathVariable("modleUI") String modleUI) {

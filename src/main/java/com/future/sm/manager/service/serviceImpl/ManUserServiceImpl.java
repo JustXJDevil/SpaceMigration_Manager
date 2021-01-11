@@ -1,4 +1,4 @@
-package com.future.sm.manager.serviceImpl;
+package com.future.sm.manager.service.serviceImpl;
 
 import com.future.sm.common.annotation.RequiredLog;
 import com.future.sm.common.exception.ServiceException;

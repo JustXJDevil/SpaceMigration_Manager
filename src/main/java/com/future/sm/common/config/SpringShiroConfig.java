@@ -22,14 +22,18 @@ public class SpringShiroConfig {
         return securityManager;
     }
 
-    //配置ShiroFilterFactoryBean对象(通过此对象创建shiro中的过滤器对象)
-    @Bean
+    //配置ShiroFilterFactoryBean对象
+    //(通过此对象创建shiro中的过滤器对象并指定过滤规则)
+    //创建SpringShiroFilter(shiroFilterFactory)
+    @Bean("shiroFilterFactory")
     public ShiroFilterFactoryBean newShiroFilterFactoryBean(
             @Autowired SecurityManager securityManager
     ){
         ShiroFilterFactoryBean shiroFilterFactoryBean =
                 new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+        //设置登录的url（如果没有登陆则先访问此页面）
+        shiroFilterFactoryBean.setLoginUrl("/doLoginUI");
 
         //定义map指定请求过滤规则(哪些资源允许匿名访问,哪些必须认证访问)
         LinkedHashMap<String,String> map = new LinkedHashMap<>();

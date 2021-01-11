@@ -14,8 +14,8 @@ public class ManLogAspectTest {
     /*这个方法不用具体实现,主要是使用它的注解,方便一处修改全文修改*/
     //@Pointcut("bean(manUserServiceImpl)")
     @Pointcut("@annotation(com.future.sm.common.annotation.RequiredLog)")
-    //@Pointcut("execution(* com.future.sm.manager.serviceImpl.ManUserServiceImpl.updateValidById(..))")
-    //@Pointcut("within(com.future.sm.manager.serviceImpl.*ServiceImpl)")
+    //@Pointcut("execution(* com.future.sm.manager.service.serviceImpl.ManUserServiceImpl.updateValidById(..))")
+    //@Pointcut("within(com.future.sm.manager.service.serviceImpl.*ServiceImpl)")
     public void pointcut(){}
 
     @Around("pointcut()")

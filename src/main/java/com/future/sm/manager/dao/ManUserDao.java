@@ -13,14 +13,14 @@ import java.util.List;
 @Mapper
 public interface ManUserDao {
     List<UserDeptVo> findPageObjects(@Param("username") String username,
-                                     @Param("start")int start,
-                                     @Param("pageSize")int pageSize);
+                                     @Param("start") int start,
+                                     @Param("pageSize") int pageSize);
 
     @Select("select count(*) from sys_users")
     int getRowCount();
 
     @Update("update sys_users set valid=#{valid},modifiedUser=#{modifiedUser},modifiedTime=now() where id=#{id}")
-    int updateValidById(Integer id,Integer valid,String modifiedUser);
+    int updateValidById(Integer id, Integer valid, String modifiedUser);
 
     int saveObject(ManUser manUser);
 
@@ -30,4 +30,7 @@ public interface ManUserDao {
     UserDeptVo findObjectById(Integer id);
 
     int updateObject(ManUser manUser);
+
+    @Select("select * from sys_users where username = #{username}")
+    ManUser findUserByUsername(String username);
 }
