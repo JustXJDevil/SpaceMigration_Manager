@@ -1,5 +1,6 @@
 package com.future.sm.manager.service.serviceImpl;
 
+import com.future.sm.common.annotation.RequiredLog;
 import com.future.sm.common.exception.ServiceException;
 import com.future.sm.common.vo.CheckBox;
 import com.future.sm.common.vo.RoleMenuVo;
@@ -51,6 +52,7 @@ public class ManRoleServiceImpl implements ManRoleService {
     }
 
     @Override
+    @RequiredLog("保存角色")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void doSaveObject(ManRole manRole, Integer... menuIds) {
         //参数校检
@@ -92,6 +94,7 @@ public class ManRoleServiceImpl implements ManRoleService {
     }
 
     @Override
+    @RequiredLog("更新角色")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateObject(ManRole manRole, Integer... menuIds) {
         //校检
@@ -116,6 +119,7 @@ public class ManRoleServiceImpl implements ManRoleService {
     }
 
     @Override
+    @RequiredLog("删除角色")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void deleteObjectById(Integer id) {
         //校检

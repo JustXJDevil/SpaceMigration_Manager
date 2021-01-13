@@ -1,5 +1,6 @@
 package com.future.sm.manager.service.serviceImpl;
 
+import com.future.sm.common.annotation.RequiredLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -46,6 +47,7 @@ public class ManLogServiceImpl implements ManLogService {
 		po.setPageCount((counts-1)/3+1);	//总页数
 		return po;
 	}
+	@RequiredLog("删除日志")
 	@Override
 	public int doDeleteObjects(Integer... ids) {
 		if(ids==null || ids.length == 0) {

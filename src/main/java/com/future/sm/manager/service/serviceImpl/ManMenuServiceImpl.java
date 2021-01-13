@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.future.sm.common.annotation.RequiredLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -32,6 +33,7 @@ public class ManMenuServiceImpl implements ManMenuService {
 		}
 		return list;
 	}
+	@RequiredLog("删除菜单")
 	@Override
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public int deleteObject(Integer id) {
@@ -57,6 +59,7 @@ public class ManMenuServiceImpl implements ManMenuService {
 		}
 		return rows;
 	}
+	@RequiredLog("更新菜单")
 	@Override
 	public int updateObject(ManMenu menu) {
 		//verify the validity
@@ -78,6 +81,7 @@ public class ManMenuServiceImpl implements ManMenuService {
 	}
 	
 	@Override
+	@RequiredLog("添加菜单")
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public void insertObject(ManMenu menu) {
 		lock = new ReentrantLock();

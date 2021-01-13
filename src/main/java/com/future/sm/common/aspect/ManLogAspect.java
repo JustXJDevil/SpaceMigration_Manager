@@ -2,6 +2,7 @@ package com.future.sm.common.aspect;
 
 import com.future.sm.common.annotation.RequiredLog;
 import com.future.sm.common.util.IPUtils;
+import com.future.sm.common.util.ShiroUtils;
 import com.future.sm.manager.pojo.ManLog;
 import com.future.sm.manager.service.ManLogService;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -79,14 +80,15 @@ public class ManLogAspect {
         String operation = requiredLog.value();
 
         //1.4获取用户名,学完shiro再进行自定义实现,没有就先给自定名
-
+        String username =
+                ShiroUtils.getUser().getUsername();
         //1.5获取方法参数
         Object[] args = pj.getArgs();
 
         //2.封装日志信息
         ManLog manLog = new ManLog();
         manLog.setIp(IPUtils.getIpAddr());
-        manLog.setUsername("admin");
+        manLog.setUsername(username);
         manLog.setCreateTime(new Date());
         manLog.setMethod(targetMethodName);
         manLog.setOperation(requiredLog.value());
@@ -128,14 +130,15 @@ public class ManLogAspect {
         String operation = requiredLog.value();
 
         //1.5获取用户名,学完shiro再进行自定义实现,没有就先给自定名
-
+        String username =
+                ShiroUtils.getUser().getUsername();
         //1.6获取方法参数
         Object[] args = pj.getArgs();
 
         //2.封装日志信息
         ManLog manLog = new ManLog();
         manLog.setIp(IPUtils.getIpAddr());
-        manLog.setUsername("admin");
+        manLog.setUsername(username);
         manLog.setCreateTime(new Date());
         manLog.setMethod(targetMethodName);
         manLog.setOperation(operation);

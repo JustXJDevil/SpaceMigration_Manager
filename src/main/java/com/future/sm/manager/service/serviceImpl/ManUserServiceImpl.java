@@ -75,6 +75,7 @@ public class ManUserServiceImpl implements ManUserService {
     }
 
     @Override
+    @RequiredLog("保存用户")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void saveObject(ManUser manUser,Integer... roleIds) {
         //校检
@@ -139,6 +140,7 @@ public class ManUserServiceImpl implements ManUserService {
     }
 
     @Override
+    @RequiredLog("更新用户")
     //清除缓存（注意key的格式）
     @CacheEvict(value = {"userCache"},key = "#manUser.id")
     @Transactional(isolation = Isolation.REPEATABLE_READ)
