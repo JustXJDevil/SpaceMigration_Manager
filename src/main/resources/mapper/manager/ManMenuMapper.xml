@@ -50,4 +50,12 @@
 	<select id="findMaxObjectId" resultType="int">
 		select max(id) from sys_menus
 	</select>
+
+	<select id="findPermissionsByIds" resultType="string">
+		select permission from sys_menus
+		where id in
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
 </mapper>

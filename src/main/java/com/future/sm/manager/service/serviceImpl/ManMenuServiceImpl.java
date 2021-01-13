@@ -72,8 +72,9 @@ public class ManMenuServiceImpl implements ManMenuService {
 	
 	@Override
 	public List<Node> findZtreeMenuNodes() {
-		
-		return dao.findZtreeMenuNodes();
+		List<Node> list = dao.findZtreeMenuNodes();
+		//System.out.println("list: "+list);
+		return list;
 	}
 	
 	@Override

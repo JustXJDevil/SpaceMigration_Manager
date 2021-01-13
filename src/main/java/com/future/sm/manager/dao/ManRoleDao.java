@@ -33,4 +33,5 @@ public interface ManRoleDao {
 
     @Select("select id,name from sys_roles")
     List<CheckBox> findRoles();
+
 }

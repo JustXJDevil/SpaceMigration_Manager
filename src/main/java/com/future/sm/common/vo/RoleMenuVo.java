@@ -8,7 +8,7 @@ public class RoleMenuVo implements Serializable {
     Integer id;
     String name;
     String note;
-    List<Integer> menuId;
+    List<Integer> menuIds;
 
     public Integer getId() {
         return id;
@@ -34,12 +34,12 @@ public class RoleMenuVo implements Serializable {
         this.note = note;
     }
 
-    public List<Integer> getMenuId() {
-        return menuId;
+    public List<Integer> getMenuIds() {
+        return menuIds;
     }
 
-    public void setMenuId(List<Integer> menuId) {
-        this.menuId = menuId;
+    public void setMenuIds(List<Integer> menuIds) {
+        this.menuIds = menuIds;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class RoleMenuVo implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", note='" + note + '\'' +
-                ", menuId=" + menuId +
+                ", menuId=" + menuIds +
                 '}';
     }
 }

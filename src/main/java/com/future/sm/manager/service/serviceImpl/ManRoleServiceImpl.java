@@ -86,7 +86,7 @@ public class ManRoleServiceImpl implements ManRoleService {
         //获取与所选role相关的menuIds
         List<Integer> menuIds = rmdao.findObjectByRoleId(id);
         System.out.println(roleMenuVo);
-        roleMenuVo.setMenuId(menuIds);
+        roleMenuVo.setMenuIds(menuIds);
         System.out.println(roleMenuVo);
         return roleMenuVo;
     }

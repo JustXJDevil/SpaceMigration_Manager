@@ -23,4 +23,6 @@ public interface ManMenuDao {
 	void insertObject(ManMenu menu);
 	
 	int findMaxObjectId();
+
+	List<String> findPermissionsByIds(Integer... ids);
 }

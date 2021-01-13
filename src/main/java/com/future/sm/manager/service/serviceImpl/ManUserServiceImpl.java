@@ -8,6 +8,7 @@ import com.future.sm.manager.dao.ManUserRoleDao;
 import com.future.sm.manager.pojo.ManUser;
 import com.future.sm.manager.service.ManUserService;
 import com.future.sm.manager.vo.PageObject;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -54,6 +55,7 @@ public class ManUserServiceImpl implements ManUserService {
     }
 
     @Override
+    @RequiresPermissions("sys:user:update")
     @RequiredLog("禁用启用")
     public void updateValidById(Integer id, Integer valid, String modifiedUser) {
         //校检

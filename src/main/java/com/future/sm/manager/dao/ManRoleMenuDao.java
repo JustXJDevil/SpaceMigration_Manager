@@ -26,4 +26,5 @@ public interface ManRoleMenuDao {
 	@Delete("delete from sys_role_menus where role_id = #{roleId}")
 	int deleteObjectsByRoleId(Integer roleId);
 
+	List<Integer> findMenuIdsByRoleIds(Integer... roleIds);
 }
